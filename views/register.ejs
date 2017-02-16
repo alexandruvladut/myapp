@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+<h1><%= title %></h1>
+<% if(user) { %>
+account <%= user %> has been created
+<br/>
+<a href="/login">login</a>
+<% } else { %>
+<form method="post" action="/register">
+    <label>First name:</label>
+    <input type="text" name="firstname"/>
+    <br/>
+    <label>Last name:</label>
+    <input type="text" name="lastname"/>
+    <br/>
+    <label>*Username:</label>
+    <input type="text" required name="username"/>
+    <br/>
+    <label>*Password:</label>
+    <input type="password" required name="password"/>
+    <br/>
+    <label>*Repeat password:</label>
+    <input type="password" required name="repassword"/>
+    <br/>
+    <label>*Email:</label>
+    <input type="email" required name="email"/>
+    <br/>
+    <label>Phone:</label>
+    <input type="tel" name="phone"/>
+    <br/>
+    <p style="color:red;"><%= error %></p>
+    <input type="submit" value="Register"/>
+</form>
+<% } %>
+</body>
+</html>

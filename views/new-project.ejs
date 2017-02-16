@@ -1,0 +1,46 @@
+<h1><%= title %></h1>
+<div style="color: green;" id="new-project-success"></div>
+<div style="color: red;" id="new-project-error"></div>
+
+<form id="projectForm" name="projectForm" method="post" action="/projects/save">
+    <label>*Name:</label>
+    <input type="text" required name="name"/>
+    <br/>
+    <label>Description:</label>
+    <input type="text" name="description"/>
+    <br/>
+    <label>Status:</label>
+    <select name="status">
+        <option value="Not started">Not started</option>
+        <option value="In progress">In progress</option>
+        <option value="Done">Done</option>
+    </select>
+    <br/>
+    <input type="submit" value="Create project"/>
+</form>
+<script>
+    $('#projectForm').submit(function (e) {
+        console.log('submit 111 !!!');
+        e.preventDefault(); //STOP default action
+
+        var form = $(this);
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: form.serialize()
+        }).done(function (data) {
+            console.log(data);
+            $('#new-project-success').html('');
+            $('#new-project-error').html('');
+            if (data.error) {
+                $('#new-project-error').html(data.error);
+            }
+            if (data.project) {
+                $('#new-project-success').html("Project '" + data.project + "' successfully created !");
+                getProjects();
+            }
+        }).fail(function (data) {
+            // Optionally alert the user of an error here...
+        });
+    });
+</script>

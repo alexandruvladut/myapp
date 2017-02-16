@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="/javascripts/script.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+<h1><%= title %></h1>
+<a href="/">home</a>
+
+<div style="color: green;" id="edit-project-success"></div>
+<div style="color: red;" id="edit-project-error"></div>
+
+<form id="editProjectForm" name="editProjectForm" method="put" action="/projects">
+    <input type="hidden" name="id" value="<%= project.id %>"/>
+    <label>*Name:</label>
+    <input type="text" required name="name" value="<%= project.name %>"/>
+    <br/>
+    <label>Description:</label>
+    <input type="text" name="description" value="<%= project.description %>"/>
+    <br/>
+    <label>Status:</label>
+    <select name="status">
+        <option value="Not started" <%= project.status == 'Not started' ? "selected" : "" %> >Not started</option>
+        <option value="In progress" <%= project.status == 'In progress' ? "selected" : "" %> >In progress</option>
+        <option value="Done" <%= project.status == 'Done' ? "selected" : "" %> >Done</option>
+    </select>
+    <br/>
+    <input type="submit" value="Update project"/>
+</form>
+
+<script>
+    $('#editProjectForm').submit(function (e) {
+        console.log('udp 111 !!!');
+        e.preventDefault(); //STOP default action
+
+        var form = $(this);
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: form.serialize()
+        }).done(function (data) {
+            console.log(data);
+            $('#edit-project-success').html('');
+            $('#edit-project-error').html('');
+            if (data.error) {
+                $('#edit-project-error').html(data.error);
+            }
+            if (data.name) {
+                $('#edit-project-success').html("Project '" + data.name + "' successfully updated !");
+            }
+        }).fail(function (data) {
+            // Optionally alert the user of an error here...
+        });
+    });
+</script>
+</body>
+</html>

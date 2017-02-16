@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="/javascripts/script.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+<h1><%= title %></h1>
+<% if(user) { %>
+<p>Welcome <%= user %></p>
+<button type="button" onclick="getUsers()">Users</button>
+<button type="button" onclick="getProjects()">Projects</button>
+
+<a href="/logout">logout</a>
+<% } else { %>
+<a href="/login">login</a> OR
+<a href="/register">register</a>
+<% } %>
+
+<div id="users"></div>
+<div id="new-project"></div>
+<div id="projects"></div>
+</body>
+</html>

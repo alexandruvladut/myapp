@@ -1,0 +1,30 @@
+<h1><%= title %></h1>
+
+<button type="button" onclick="getNewProject()">Add new project</button>
+
+<% if(projects.length > 0){ %>
+<table>
+    <tr style="font-weight: bold;">
+        <td>Name</td>
+        <td>Description</td>
+        <td>Status</td>
+        <td>Created</td>
+        <td>Updated</td>
+        <td>Action</td>
+    </tr>
+    <% projects.forEach(function(project) { %>
+    <tr>
+        <td><%= project.name %></td>
+        <td><%= project.description %></td>
+        <td><%= project.status %></td>
+        <td><%= project.created %></td>
+        <td><%= project.updated %></td>
+        <td>
+            <a href="/projects/id/<%= project.id %>">edit</a>
+            <button type="button" onclick="removeProject(<%= project.id %>)">delete</button>
+        </td>
+    </tr>
+    <% }); %>
+</table>
+<% } %>
+<p style="color: red;"><%= error %></p>

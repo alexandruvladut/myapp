@@ -1,0 +1,23 @@
+<h1><%= title %></h1>
+<table>
+    <tr style="font-weight: bold;">
+        <td>Username</td>
+        <td>First name</td>
+        <td>Last name</td>
+        <td>Phone</td>
+        <td>Email</td>
+        <td>Created</td>
+        <td>Updated</td>
+    </tr>
+    <% users.forEach(function(user) { %>
+    <tr>
+        <td><%= user.username %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created %></td>
+    </tr>
+    <% }); %>
+</table>
+<p style="color: red;"><%= error %></p>
